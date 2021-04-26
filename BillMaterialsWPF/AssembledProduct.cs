@@ -23,10 +23,5 @@ namespace BillMaterialsWPF
         public string Name { get; set; }
         public List<String> Components { get; set; }
 
-        public int CountComponents()
-        {
-            return Components.Count;
-        }
-
     }
 }

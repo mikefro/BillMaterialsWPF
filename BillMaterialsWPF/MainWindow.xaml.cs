@@ -22,16 +22,10 @@ namespace BillMaterialsWPF
     {
         static DataAccess da = new DataAccess();
 
+        //Constant List with all the assembledProducts
         public List<AssembledProduct> PRODUCTS = da.GetAssembledProducts();
 
-       // public List<string> PRODUCTS = new List<string> {"AL","pasar","la","BARCA"};
-
-
-        public List<string> GetAssembledComponents(int assembledProductID)
-        {
-            return da.GetComponents(assembledProductID);
-        }
-
+        //Set all the components into every Assembled Products
         public void SetAssembledComponents()
         {
             foreach (AssembledProduct assembledProduct in PRODUCTS)
@@ -46,6 +40,19 @@ namespace BillMaterialsWPF
 
             SetAssembledComponents();
             productsListBox.ItemsSource = PRODUCTS;
+        }
+
+        //Show the components of a selected Assembled Product into Components ListBox
+        private void getComponentsButton_Click(object sender, RoutedEventArgs e)
+        {
+            AssembledProduct ap = (AssembledProduct) productsListBox.SelectedItem;
+            componentsListBox.ItemsSource = ap.Components;
+        }
+
+        //Close the aplication
+        private void closeAppButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
