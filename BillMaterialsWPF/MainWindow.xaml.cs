@@ -22,17 +22,30 @@ namespace BillMaterialsWPF
     {
         static DataAccess da = new DataAccess();
 
-        List<AssembledProduct> products = da.GetAssembledProducts();
+        public List<AssembledProduct> PRODUCTS = da.GetAssembledProducts();
 
-        private List<string> GetAssembledComponents(int assembledProductID)
+       // public List<string> PRODUCTS = new List<string> {"AL","pasar","la","BARCA"};
+
+
+        public List<string> GetAssembledComponents(int assembledProductID)
         {
             return da.GetComponents(assembledProductID);
         }
 
+        public void SetAssembledComponents()
+        {
+            foreach (AssembledProduct assembledProduct in PRODUCTS)
+            {
+                assembledProduct.Components = da.GetComponents(assembledProduct.productAssemblyID);
+            }
+        }
 
         public MainWindow()
         {
             InitializeComponent();
+
+            SetAssembledComponents();
+            productsListBox.ItemsSource = PRODUCTS;
         }
     }
 }

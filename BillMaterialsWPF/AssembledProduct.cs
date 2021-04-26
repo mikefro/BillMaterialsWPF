@@ -15,13 +15,18 @@ namespace BillMaterialsWPF
             return productAssemblyID;
         }
 
-        private void SetProductAssemblyID(int value)
+        public void SetProductAssemblyID(int value)
         {
             productAssemblyID = value;
         }
 
         public string Name { get; set; }
         public List<String> Components { get; set; }
+
+        public int CountComponents()
+        {
+            return Components.Count;
+        }
 
     }
 }
