@@ -32,17 +32,17 @@ namespace BillMaterialsWPF
 
 
         //Return a component List of a assembled product
-        public List<string> GetComponents(int productAssemblyID)
+        public List<AssembledProduct> GetComponents(int productAssemblyID)
         {
-            List<string> components;
-            string sql = $"SELECT Production.Product.Name as Name" +
+            List<AssembledProduct> components;
+            string sql = $"SELECT Production.Product.Name as Name,ProductAssemblyID,ComponentID" +
                                 $" FROM Production.BillOfMaterials " +
                                 $"JOIN Production.Product on Product.ProductID = ComponentID " +
                                 $"WHERE ProductAssemblyID = {productAssemblyID}";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                components = conn.Query<string>(sql).ToList();
+                components = conn.Query<AssembledProduct>(sql).ToList();
             }
             return components;
         }

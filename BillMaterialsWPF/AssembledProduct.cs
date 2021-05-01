@@ -9,10 +9,21 @@ namespace BillMaterialsWPF
     public class AssembledProduct
     {
         public int productAssemblyID;
+        public int componentID;
 
         public int GetProductAssemnblyID()
         {
             return productAssemblyID;
+        }
+
+        public void SeComponentID(int value)
+        {
+            componentID = value;
+        }
+
+        public int GetComponentID()
+        {
+            return componentID;
         }
 
         public void SetProductAssemblyID(int value)
@@ -21,7 +32,7 @@ namespace BillMaterialsWPF
         }
 
         public string Name { get; set; }
-        public List<String> Components { get; set; }
+        public List<AssembledProduct> Components { get; set; }
 
     }
 }

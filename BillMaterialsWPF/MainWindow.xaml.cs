@@ -24,6 +24,7 @@ namespace BillMaterialsWPF
 
         //Constant List with all the assembledProducts
         public List<AssembledProduct> PRODUCTS = da.GetAssembledProducts();
+        public List<AssembledProduct> COMPONENTS,SUBCOMPONENTS;
 
         //Set all the components into every Assembled Products
         public void SetAssembledComponents()
@@ -38,7 +39,11 @@ namespace BillMaterialsWPF
         {
             InitializeComponent();
 
-            SetAssembledComponents();
+            foreach (AssembledProduct assembledProduct in PRODUCTS)
+            {
+                assembledProduct.Components = da.GetComponents(assembledProduct.productAssemblyID);
+            }
+
             productsListBox.ItemsSource = PRODUCTS;
         }
 
@@ -46,7 +51,14 @@ namespace BillMaterialsWPF
         private void getComponentsButton_Click(object sender, RoutedEventArgs e)
         {
             AssembledProduct ap = (AssembledProduct) productsListBox.SelectedItem;
-            componentsListBox.ItemsSource = ap.Components;
+            COMPONENTS = da.GetComponents(ap.productAssemblyID);
+
+            foreach (AssembledProduct assembledProduct in COMPONENTS)
+            {
+                assembledProduct.Components = da.GetComponents(assembledProduct.GetComponentID());
+            }
+            componentsListBox.ItemsSource = COMPONENTS;
+            
         }
 
         //Close the aplication
@@ -54,5 +66,20 @@ namespace BillMaterialsWPF
         {
             Close();
         }
+        //Show the components of a selected component Product into SubComponents ListBox
+
+        private void getSubComponentsButton_Click(object sender, RoutedEventArgs e)
+        {
+            AssembledProduct ap = (AssembledProduct)componentsListBox.SelectedItem;
+            SUBCOMPONENTS = da.GetComponents(ap.componentID);
+
+            foreach (AssembledProduct assembledProduct in SUBCOMPONENTS)
+            {
+                assembledProduct.Components = da.GetComponents(assembledProduct.GetComponentID());
+            }
+
+            subComponentsListBox.ItemsSource = SUBCOMPONENTS;
+        }
+        }
     }
-}
+

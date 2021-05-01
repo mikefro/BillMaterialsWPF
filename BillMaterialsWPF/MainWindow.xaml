@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BillMaterialsWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="600">
+        Title="MainWindow" Height="450" Width="900">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -13,6 +13,9 @@
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="80"></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="80"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="30"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -38,12 +41,37 @@
             </ListBox.ItemTemplate> 
         </ListBox>
 
-        <Button x:Name="getComponentsButton" Content="Get Components >>" 
+        <Button x:Name="getComponentsButton" Content="Get Components >>"
                 Margin="10" Grid.Column="3" Grid.Row="3" Height="40" Click="getComponentsButton_Click"></Button>
+
         <TextBlock Grid.Row="2" Grid.Column="4">Components</TextBlock>
-        <ListBox x:Name="componentsListBox" Grid.Row="3" Grid.Column="4"></ListBox>
+        <ListBox x:Name="componentsListBox" Grid.Row="3" Grid.Column="4" ItemsSource="{Binding COMPONENTS}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Name}" FontSize="16"/>
+                        <TextBlock Text="{Binding Components.Count, StringFormat='Components: {0}'}" Margin="10,0,0,0"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button x:Name="getSubComponentsButton" Content="Get SubComponents >>"
+                Margin="10" Grid.Column="5" Grid.Row="3" Height="40" Click="getSubComponentsButton_Click" ></Button>
+
+        <TextBlock Grid.Row="2" Grid.Column="6">SubComponents</TextBlock>
+        <ListBox x:Name="subComponentsListBox" Grid.Row="3" Grid.Column="6"  ItemsSource="{Binding SUBCOMPONENTS}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Name}" FontSize="16"/>
+                        <TextBlock Text="{Binding Components.Count, StringFormat='Components: {0}'}" Margin="10,0,0,0"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button x:Name="closeAppButton" Content="Close" 
-                Margin="10" Grid.Column="4" Grid.Row="4"
+                Margin="10" Grid.Column="6" Grid.Row="4"
                 Height="40" Click="closeAppButton_Click"/>
     </Grid>
 </Window>
