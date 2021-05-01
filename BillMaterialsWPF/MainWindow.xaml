@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BillMaterialsWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="900">
+        Title="MainWindow" Height="450" Width="auto">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"></ColumnDefinition>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="80"></ColumnDefinition>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="80"></ColumnDefinition>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="20"></ColumnDefinition> 
+            <ColumnDefinition Width="180"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="180"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="180"></ColumnDefinition>
             <ColumnDefinition Width="30"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -30,7 +30,7 @@
 
         <TextBlock Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Text="Bill of Materials" FontSize="56"></TextBlock>
         <TextBlock Grid.Row="2" Grid.Column="2">Product</TextBlock>
-        <ListBox x:Name="productsListBox" Grid.Row="3" Grid.Column="2" ItemsSource="{Binding PRODUCTS}">
+        <ListBox x:Name="productsListBox" Grid.Row="3" Grid.Column="2" ItemsSource="{Binding PRODUCTS}" SelectionChanged="productsListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Orientation="Vertical">
@@ -40,12 +40,12 @@
                 </DataTemplate> 
             </ListBox.ItemTemplate> 
         </ListBox>
-
+<!--
         <Button x:Name="getComponentsButton" Content="Get Components >>"
                 Margin="10" Grid.Column="3" Grid.Row="3" Height="40" Click="getComponentsButton_Click"></Button>
-
+-->
         <TextBlock Grid.Row="2" Grid.Column="4">Components</TextBlock>
-        <ListBox x:Name="componentsListBox" Grid.Row="3" Grid.Column="4" ItemsSource="{Binding COMPONENTS}">
+        <ListBox x:Name="componentsListBox" Grid.Row="3" Grid.Column="4" ItemsSource="{Binding COMPONENTS}" SelectionChanged="componentsListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Orientation="Vertical">
@@ -55,10 +55,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
+<!--
         <Button x:Name="getSubComponentsButton" Content="Get SubComponents >>"
                 Margin="10" Grid.Column="5" Grid.Row="3" Height="40" Click="getSubComponentsButton_Click" ></Button>
-
+-->
         <TextBlock Grid.Row="2" Grid.Column="6">SubComponents</TextBlock>
         <ListBox x:Name="subComponentsListBox" Grid.Row="3" Grid.Column="6"  ItemsSource="{Binding SUBCOMPONENTS}">
             <ListBox.ItemTemplate>
