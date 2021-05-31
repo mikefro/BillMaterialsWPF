@@ -94,7 +94,7 @@ namespace BillMaterialsWPF
 
             foreach (AssembledProduct assembledProduct in COMPONENTS)
             {
-                assembledProduct.Components = da.GetComponents(assembledProduct.GetComponentID());
+                assembledProduct.Components = da.GetComponents(assembledProduct.componentID);
             }
             componentsListBox.ItemsSource = COMPONENTS;
         }
@@ -110,7 +110,7 @@ namespace BillMaterialsWPF
 
                 foreach (AssembledProduct assembledProduct in SUBCOMPONENTS)
                 {
-                    assembledProduct.Components = da.GetComponents(assembledProduct.GetComponentID());
+                    assembledProduct.Components = da.GetComponents(assembledProduct.componentID);
                 }
 
                 subComponentsListBox.ItemsSource = SUBCOMPONENTS;

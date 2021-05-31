@@ -19,10 +19,9 @@ namespace BillMaterialsWPF
         public List<AssembledProduct> GetAssembledProducts()
         {
             List<AssembledProduct> products;
-            string sql = $"SELECT distinct Production.Product.Name as Name,ProductAssemblyID,BOMLevel" +
-                                            $" FROM Production.BillOfMaterials " +
-                                            $"JOIN Production.Product on Product.ProductID = ProductAssemblyID " +
-                                            $"WHERE EndDate is null";
+            string sql = $"SELECT distinct Production.Product.Name as Name,ProductAssemblyID" +
+                                $" FROM Production.BillOfMaterials " +
+                                $"JOIN Production.Product on Product.ProductID = ProductAssemblyID";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -36,7 +35,7 @@ namespace BillMaterialsWPF
         public List<AssembledProduct> GetComponents(int productAssemblyID)
         {
             List<AssembledProduct> components;
-            string sql = $"SELECT Production.Product.Name as Name,ProductAssemblyID,ComponentID,BOMLevel" +
+            string sql = $"SELECT Production.Product.Name as Name,ProductAssemblyID,ComponentID" +
                                 $" FROM Production.BillOfMaterials " +
                                 $"JOIN Production.Product on Product.ProductID = ComponentID " +
                                 $"WHERE ProductAssemblyID = {productAssemblyID}";
