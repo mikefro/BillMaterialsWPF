@@ -7,10 +7,22 @@
         xmlns:BillMaterialsWPF="clr-namespace:BillMaterialsWPF" x:Class="BOM_Navigator.MainWindow"
         mc:Ignorable="d"
         Title="BOM Navigator" Height="450" Width="450">
-
-
-
-
+    <Window.Resources>
+        <!--
+        <Style x:Name="jeje"  TargetType="ListBoxItem">
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                   
+                </EventTrigger>
+                
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter  Property="Foreground" Value="DarkOrange"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        -->
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"/>
@@ -26,6 +38,7 @@
             <RowDefinition Height="30"/>
 
         </Grid.RowDefinitions>
+        
         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Text="Bill of Materials" FontSize="56"/>
         <TextBlock x:Name="levelTextBlock" Grid.Row="2" Grid.Column="1"/>
         <Button x:Name="upButton" Content="Up" 
@@ -35,10 +48,16 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <WrapPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Name}" FontSize="16"  MouseMove="OnMouseMove"/>
+                        <TextBlock Text="{Binding Name}" FontSize="16"/>
                     </WrapPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+          <!--  <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <EventSetter Event="PreviewMouseDown"
+                                 Handler="ItemOnPreviewMouseDown" />
+                </Style>
+            </ListBox.ItemContainerStyle> -->
             <ListBox.DataContext>
                 <BillMaterialsWPF:AssembledProduct/>
             </ListBox.DataContext>

@@ -30,7 +30,7 @@ namespace BillMaterialsWPF
                                             $"JOIN AdventureWorks2016.Production.Product on ProductID = ProductAssemblyID " +
                                             $"WHERE EndDate is null and BOMLevel = 1";
 
-            string skl = "SELECT  distinct ComponentID,Product.Name as Name FROM AdventureWorks2016.Production.BillOfMaterials " +
+            string skl = "SELECT  distinct ComponentID,Product.Name as Name,BOMLevel FROM AdventureWorks2016.Production.BillOfMaterials " +
                 "JOIN AdventureWorks2016.Production.Product on Product.ProductID = ComponentID " +
                 "WHERE EndDate is null and BOMLevel = 1";
 

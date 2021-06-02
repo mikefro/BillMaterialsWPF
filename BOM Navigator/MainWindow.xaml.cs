@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using BillMaterialsWPF;
 
 namespace BOM_Navigator
@@ -34,12 +25,12 @@ namespace BOM_Navigator
             InitializeComponent();
             products = da.GetAssembledProducts();
             bomListBox.ItemsSource = products;
-            levelTextBlock.Text = $"BOM LEVEL {products[0].bomLevel} ParentProductTree {parentProductTree.Count}";
+            levelTextBlock.Text = $"BOM LEVEL {products[0].BOMLevel}";
 
         }
         private void bomListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AssembledProduct ap = null;
+            AssembledProduct ap;
 
             ap = (AssembledProduct)bomListBox.SelectedItem;
 
@@ -55,9 +46,9 @@ namespace BOM_Navigator
                     bomListBox.Items.Clear();
                     bomListBox.ItemsSource = products;
 
-                    levelTextBlock.Text = $"BOM LEVEL {products[0].bomLevel} ParentProductTree {parentProductTree.Count}";
+                    levelTextBlock.Text = $"BOM LEVEL {products[0].BOMLevel}";
 
-                    if (products[0].bomLevel > 1)
+                    if (products[0].BOMLevel > 1)
                         upButton.IsEnabled = true;
                 }
             }
@@ -65,53 +56,65 @@ namespace BOM_Navigator
 
         private void upButton_Click(object sender, RoutedEventArgs e)
         {
-            if (parentProductTree.Count !=0)
+            products = new List<AssembledProduct>();
+
+            if (parentProductTree.Count > 1)
             {
-                products = new List<AssembledProduct>();
-                products = da.GetComponents(parentProductTree[parentProductTree.Count - 1]);
-                if (products.Count > 0)
-                {
-                    bomListBox.ItemsSource = null;
-                    bomListBox.Items.Clear();
-                    bomListBox.ItemsSource = products;
-                    parentProductTree.RemoveAt(parentProductTree.Count - 1);
-                    levelTextBlock.Text = $"BOM LEVEL {products[0].bomLevel}";
-
-                    if (products[0].bomLevel > 1)
-                    {
-                        
-                    }
-                    else
-                    {
-                        upButton.IsEnabled = false;
-
-                    }
-                }
+                products = da.GetComponents(parentProductTree[parentProductTree.Count - 2]);
             }
+            else
+            {
+                products = da.GetAssembledProducts();
+                upButton.IsEnabled = false;
+            }
+
+            bomListBox.ItemsSource = null;
+            bomListBox.Items.Clear();
+            bomListBox.ItemsSource = products;
+            parentProductTree.RemoveAt(parentProductTree.Count - 1);
+            levelTextBlock.Text = $"BOM LEVEL {products[0].BOMLevel}";
         }
 
-        private void OnMouseMove(object sender, MouseEventArgs e)
+        /*
+        private void ItemOnPreviewMouseDown(
+            object sender, MouseButtonEventArgs e)
         {
-          /*  
-            var item = VisualTreeHelper.HitTest(bomListBox, Mouse.GetPosition(bomListBox)).VisualHit;
+            ListBoxItem lbi = (ListBoxItem)sender;
+        //    AssembledProduct ap = (AssembledProduct) lbi;
 
-            // find ListViewItem (or null)
-            while (item != null && !(item is ListBoxItem))
-                item = VisualTreeHelper.GetParent(item);
-
-            if (item != null)
-            {
-                int i = bomListBox.Items.IndexOf(((ListBoxItem)item).DataContext);
-
-                var p = da.GetComponents(products[i].componentID);
-                if (p.Count > 0)
-                {
-                    this.Cursor = Cursors.Hand;
-                }
-
-            }
-         */   
         }
+        */
+        /*
+        private void OnMouseMove(object sender, MouseEventArgs e)
+                {
+
+                    var item = VisualTreeHelper.HitTest(bomListBox, Mouse.GetPosition(bomListBox)).VisualHit;
+
+                    // find ListViewItem (or null)
+                    while (item != null && !(item is ListBoxItem))
+                        item = VisualTreeHelper.GetParent(item);
+
+                    if (item != null)
+                    {
+                        int i = bomListBox.Items.IndexOf(((ListBoxItem)item).DataContext);
+
+                        var p = da.GetComponents(products[i].componentID);
+                        if (p.Count > 0)
+                        {
+                            this.Cursor = Cursors.Hand;
+                            ListBoxItem listBoxItem = (ListBoxItem)sender;
+                  //  listBoxItem.Style.
+
+                        }
+                        else
+                        {
+                            this.Cursor = Cursors.Arrow;
+                        }
+
+                    }
+        */
+                }
     }
-}
+
+
 

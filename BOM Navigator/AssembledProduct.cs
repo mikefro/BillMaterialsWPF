@@ -11,7 +11,7 @@ namespace BillMaterialsWPF
     {
         public int productAssemblyID { get; set; }
         public int componentID { get; set; }
-        public int bomLevel { get; set; }
+        public int BOMLevel { get; set; }
         public string Name { get; set; }
         public List<AssembledProduct> Components { get; set; }
 
